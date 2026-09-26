@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agent-lab
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: agent-workspace-demo-user
+  namespace: agent-lab
+  labels:
+    app.kubernetes.io/name: agent-runtime
+    agent-lab/user-id: demo-user
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: agent-runtime-demo-user
+  namespace: agent-lab
+  labels:
+    app.kubernetes.io/name: agent-runtime
+    agent-lab/user-id: demo-user
+spec:
+  restartPolicy: Always
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  containers:
+    - name: runtime
+      image: agent-runtime:local
+      imagePullPolicy: IfNotPresent
+      command:
+        - /bin/bash
+        - -lc
+        - mkdir -p /workspace/users/demo-user/sessions && sleep infinity
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+  volumes:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: agent-workspace-demo-user

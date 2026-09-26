@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local runtime state
+data/
+*.sqlite
+*.sqlite3
+
+# Build output
+dist/
+client/dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
