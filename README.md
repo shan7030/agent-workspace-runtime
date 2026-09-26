@@ -20,6 +20,16 @@ Most agent demos stop at a chat box. This project explores the next layer:
 - How tool calls can be routed into a self-hosted workspace.
 - How each user can get an isolated runtime and persistent workspace storage.
 
+## Demo
+
+
+
+https://github.com/user-attachments/assets/bdb376cd-54de-4c4f-9306-ee9d25476316
+
+
+
+
+
 ## Architecture
 
 ```mermaid
